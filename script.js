@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
         {
             id: 5,
             name: "Almoxarifado Digital",
-            category: ["web", "dados"],
+            category: ["web"],
             type: "Aplicação Web • Em uso real",
             icon: '<i class="fa-solid fa-boxes-stacked"></i>',
             visual: "project-stock",
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         /*{
             id: 1,
             name: "Sistema Bancário",
-            category: ["backend", "dados"],
+            category: ["backend"],
             type: "Backend • Em desenvolvimento",
             icon: '<i class="fa-brands fa-java"></i>',
             visual: "project-java",
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         {
             id: 2,
             name: "Controle Financeiro",
-            category: ["backend", "dados"],
+            category: ["backend"],
             type: "Sistema Web • Projeto de formação",
             icon: '<i class="fa-solid fa-wallet"></i>',
             visual: "project-csharp",
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
         /*{
             id: 4,
             name: "Sharp Budget",
-            category: ["dados", "web"],
+            category: ["web"],
             type: "Projeto de estudo",
             icon: '<i class="fa-solid fa-chart-line"></i>',
             visual: "project-data",
@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "JavaScript",
             "Backend",
             "Desenvolvimento Web",
-            "Dados & Analytics"
+            "Testes automatizados"
         ];
 
         let wordIndex = 0;
