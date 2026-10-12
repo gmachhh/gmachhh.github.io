@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfólio de Erick Machado — estudante de Ciência e Tecnologia, desenvolvedor em formação e entusiasta de Dados.">
+    <meta name="author" content="Erick Machado">
+    <meta name="theme-color" content="#000000">
+    <title>Erick Machado | Desenvolvedor em Formação</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
+
+    <meta property="og:title" content="Erick Machado | Desenvolvedor em Formação">
+    <meta property="og:description" content="Estudante de Ciência e Tecnologia na UFABC, desenvolvedor em formação e entusiasta de Dados.">
+    <meta property="og:type" content="website">
+
+    <script>
+        try { if (localStorage.getItem("portfolio-theme") === "light") document.documentElement.classList.add("light-theme"); } catch {}
+    </script>
+</head>
+
+<body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <header class="header" id="header">
+        <div class="container header-content">
+            <a class="logo" href="#home" aria-label="Página inicial">Dev Erick<span>.</span></a>
+
+            <div class="header-tools">
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Alternar tema" title="Alternar tema">
+                    <i class="fa-solid fa-sun"></i>
+                </button>
+
+                <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+
+            <nav class="nav" aria-label="Navegação principal">
+                <a class="nav-link active" href="#home">Início</a>
+                <a class="nav-link" href="#about">Sobre</a>
+                <a class="nav-link" href="#skills">Tecnologias</a>
+                <a class="nav-link" href="#experience">Trajetória</a>
+                <a class="nav-link" href="#projects">Projetos</a>
+                <a class="nav-link" href="#contact">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero section" id="home">
+            <div class="container hero-grid">
+                <div class="hero-content reveal">
+                    <span class="eyebrow">Olá, eu sou o Erick 👋</span>
+
+                    <h1>
+                        Desenvolvedor em formação
+                        <span class="gradient-text">& estudante de Tecnologia.</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Estudante de Ciência e Tecnologia na UFABC e Técnico em Informática
+                        para Internet pelo IFSP. Gosto de transformar problemas em soluções
+                        usando programação, dados e tecnologia.
+                    </p>
+
+                    <div class="typing-line">
+                        <span>Atualmente estudando:</span>
+                        <strong class="typing" aria-live="polite"></strong>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#projects">
+                            Ver meus projetos <i class="fa-solid fa-arrow-down"></i>
+                        </a>
+                        <a class="btn btn-secondary" href="curriculo-erick-machado.pdf" target="_blank" rel="noopener">
+                            <i class="fa-solid fa-file-pdf"></i> Currículo
+                        </a>
+                    </div>
+
+                    <div class="social-links" aria-label="Redes sociais">
+                        <a href="https://www.linkedin.com/in/erick-machado-204ab1274/" target="_blank" rel="noopener" aria-label="LinkedIn">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/gmachhh" target="_blank" rel="noopener" aria-label="GitHub">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <button class="social-copy" type="button" data-copy-email aria-label="Copiar e-mail" title="Copiar e-mail">
+                            <i class="fa-solid fa-envelope"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="hero-visual reveal">
+                    <div class="code-window">
+                        <div class="window-bar">
+                            <span></span><span></span><span></span>
+                            <small>erick.java</small>
+                        </div>
+                        <pre><code><span class="code-keyword">public class</span> <span class="code-name">Erick</span> {
+
+    <span class="code-keyword">String</span> foco = <span class="code-string">"Tecnologia"</span>;
+    <span class="code-keyword">String</span> objetivo = <span class="code-string">"Evoluir"</span>;
+
+    <span class="code-keyword">void</span> <span class="code-function">resolverProblemas</span>() {
+        aprender();
+        construir();
+        colaborar();
+        
+    }
+}</code></pre>
+                    </div>
+
+                    <div class="floating-card card-one">
+                        <i class="fa-solid fa-code"></i>
+                        <div><strong>Code</strong><span>Build & Learn</span></div>
+                    </div>
+
+                    <div class="floating-card card-two">
+                        <i class="fa-solid fa-database"></i>
+                        <div><strong>Data</strong><span>SQL & Analytics</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt" id="about">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <span class="section-kicker">SOBRE MIM</span>
+                    <h2>Construindo minha carreira <span>em tecnologia.</span></h2>
+                    <p>Uma trajetória baseada em aprendizado, prática e curiosidade.</p>
+                </div>
+
+                <div class="about-grid">
+                    <div class="about-text reveal">
+                        <p>
+                            Sou estudante de <strong>Bacharelado em Ciência e Tecnologia na UFABC</strong>
+                            e formado como <strong>Técnico em Informática para Internet pelo IFSP</strong>.
+                            Minha formação me aproximou do desenvolvimento de software, banco de dados,
+                            lógica de programação e soluções digitais.
+                        </p>
+                        <p>
+                            Também tenho experiência profissional como <strong>Jovem Aprendiz na Sodexo</strong>,
+                            onde desenvolvi organização, comunicação, responsabilidade e trabalho em equipe.
+                        </p>
+                        <p>
+                            Em projetos acadêmicos e de formação, tive contato com tecnologias como
+                            <strong>C#, SQL Server, HTML, CSS, JavaScript e Java</strong>. Meu objetivo é
+                            iniciar e desenvolver minha carreira em Tecnologia, especialmente em
+                            desenvolvimento, backend e Dados & Analytics.
+                        </p>
+                    </div>
+
+                    <div class="about-highlights reveal">
+                        <div class="highlight-card">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <div><strong>UFABC</strong><span>Ciência e Tecnologia</span></div>
+                        </div>
+                        <div class="highlight-card">
+                            <i class="fa-solid fa-laptop-code"></i>
+                            <div><strong>IFSP</strong><span>Técnico em Informática para Internet</span></div>
+                        </div>
+                        <div class="highlight-card">
+                            <i class="fa-solid fa-briefcase"></i>
+                            <div><strong>Experiência</strong><span>Jovem Aprendiz — Sodexo</span></div>
+                        </div>
+                        <div class="highlight-card">
+                            <i class="fa-solid fa-bullseye"></i>
+                            <div><strong>Objetivo</strong><span>Desenvolvimento & Dados</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section stats-section" id="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card reveal">
+                        <i class="fa-solid fa-diagram-project"></i>
+                        <strong class="counter" data-target="3">0</strong>
+                        <span>Projetos destacados</span>
+                    </div>
+                    <div class="stat-card reveal">
+                        <i class="fa-solid fa-code"></i>
+                        <strong class="counter" data-target="10">0</strong>
+                        <span>Tecnologias no portfólio</span>
+                    </div>
+                    <div class="stat-card reveal">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <strong class="counter" data-target="3">0</strong>
+                        <span>Áreas de atuação</span>
+                    </div>
+                    <div class="stat-card reveal">
+                        <i class="fa-solid fa-rocket"></i>
+                        <strong class="counter" data-target="100" data-suffix="%">0%</strong>
+                        <span>Foco em evolução</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="skills">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <span class="section-kicker">TECNOLOGIAS</span>
+                    <h2>Ferramentas que estou <span>aprendendo e utilizando.</span></h2>
+                    <p>Meu foco é construir uma base sólida e evoluir continuamente.</p>
+                </div>
+
+                <div class="skills-grid">
+                    <article class="skill-group reveal">
+                        <div class="skill-group-title"><i class="fa-solid fa-code"></i><h3>Desenvolvimento</h3></div>
+                        <div class="tags">
+                            <span>Java</span><span>C#</span><span>JavaScript</span><span>TypeScript</span>
+                            <span>HTML5</span><span>CSS3</span><span>React</span><span>Node.js</span>
+                        </div>
+                    </article>
+
+                    <article class="skill-group reveal">
+                        <div class="skill-group-title"><i class="fa-solid fa-database"></i><h3>Dados</h3></div>
+                        <div class="tags">
+                            <span>SQL</span><span>SQL Server</span><span>Collections</span>
+                            <span>Lógica de Programação</span><span>Dados & Analytics</span>
+                        </div>
+                    </article>
+
+                    <article class="skill-group reveal">
+                        <div class="skill-group-title"><i class="fa-solid fa-screwdriver-wrench"></i><h3>Ferramentas</h3></div>
+                        <div class="tags">
+                            <span>Git</span><span>GitHub</span><span>VS Code</span>
+                            <span>Visual Studio</span><span>IA Generativa</span>
+                        </div>
+                    </article>
+
+                    <article class="skill-group reveal">
+                        <div class="skill-group-title"><i class="fa-solid fa-people-group"></i><h3>Competências</h3></div>
+                        <div class="tags">
+                            <span>Trabalho em equipe</span><span>Comunicação</span>
+                            <span>Organização</span><span>Aprendizado rápido</span><span>Resolução de problemas</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt" id="experience">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <span class="section-kicker">TRAJETÓRIA</span>
+                    <h2>Experiência e <span>formação.</span></h2>
+                    <p>Os principais passos da minha formação acadêmica e profissional.</p>
+                </div>
+
+                <div class="timeline">
+                    <article class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">2026 — Atual</span>
+                            <h3>Bacharelado em Ciência e Tecnologia</h3>
+                            <h4>Universidade Federal do ABC — UFABC</h4>
+                            <p>Formação multidisciplinar com base em ciência, tecnologia, matemática e resolução de problemas.</p>
+                        </div>
+                    </article>
+
+                    <article class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">2023 — 2024</span>
+                            <h3>Jovem Aprendiz — Auxiliar Administrativo</h3>
+                            <h4>Sodexo do Brasil Comercial S.A.</h4>
+                            <p>Experiência em rotinas administrativas, organização, comunicação, responsabilidade e trabalho em equipe.</p>
+                        </div>
+                    </article>
+
+                    <article class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">Formação técnica</span>
+                            <h3>Técnico em Informática para Internet</h3>
+                            <h4>Instituto Federal de São Paulo — IFSP</h4>
+                            <p>Formação com desenvolvimento web, programação, banco de dados e construção de projetos práticos.</p>
+                        </div>
+                    </article>
+
+                    <article class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">Projeto prático</span>
+                            <h3>Sistema de Controle Financeiro</h3>
+                            <h4>C# + SQL Server</h4>
+                            <p>Projeto desenvolvido durante a formação, envolvendo cadastro, controle de despesas e organização de informações financeiras.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="projects">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <span class="section-kicker">PORTFÓLIO</span>
+                    <h2>Projetos que <span>colocam conhecimento em prática.</span></h2>
+                    <p>Projetos acadêmicos, de estudo e desenvolvimento pessoal.</p>
+                </div>
+
+                <div class="filter-buttons reveal" role="tablist" aria-label="Filtrar projetos">
+                    <button class="filter-btn active" data-filter="all" type="button">Todos</button>
+                    <button class="filter-btn" data-filter="backend" type="button">Backend</button>
+                    <button class="filter-btn" data-filter="web" type="button">Web</button>
+                    <button class="filter-btn" data-filter="dados" type="button">Dados</button>
+                </div>
+
+                <div class="projects-grid" id="projectsGrid"></div>
+            </div>
+        </section>
+
+        <section class="section cta-section" id="contact">
+            <div class="container">
+                <div class="cta-card reveal">
+                    <span class="section-kicker">VAMOS CONVERSAR?</span>
+                    <h2>Estou buscando minha próxima oportunidade em Tecnologia.</h2>
+                    <p>
+                        Se você é recrutador, desenvolvedor ou profissional da área e quiser
+                        conversar sobre oportunidades, projetos ou tecnologia, entre em contato.
+                    </p>
+
+                    <form class="contact-form" id="contactForm" novalidate>
+                        <div class="form-grid">
+                            <label>
+                                <span>Nome</span>
+                                <input id="contactName" name="name" type="text" autocomplete="name" placeholder="Seu nome">
+                                <small class="field-error" data-error-for="name"></small>
+                            </label>
+                            <label>
+                                <span>E-mail</span>
+                                <input id="contactEmail" name="email" type="email" autocomplete="email" placeholder="seu@email.com">
+                                <small class="field-error" data-error-for="email"></small>
+                            </label>
+                        </div>
+
+                        <label>
+                            <span>Assunto</span>
+                            <input id="contactSubject" name="subject" type="text" placeholder="Ex.: Oportunidade de estágio">
+                            <small class="field-error" data-error-for="subject"></small>
+                        </label>
+
+                        <label>
+                            <span>Mensagem</span>
+                            <textarea id="contactMessage" name="message" rows="5" placeholder="Escreva sua mensagem..."></textarea>
+                            <small class="field-error" data-error-for="message"></small>
+                        </label>
+
+                        <div class="form-actions">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa-solid fa-paper-plane"></i> Preparar e-mail
+                            </button>
+                            <button class="btn btn-secondary" type="button" data-copy-email>
+                                <i class="fa-solid fa-copy"></i> Copiar e-mail
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="cta-actions">
+                        <a class="btn btn-secondary" href="https://www.linkedin.com/in/erick-machado-204ab1274/" target="_blank" rel="noopener">
+                            <i class="fa-brands fa-linkedin-in"></i> LinkedIn
+                        </a>
+                        <a class="btn btn-secondary" href="https://github.com/gmachhh" target="_blank" rel="noopener">
+                            <i class="fa-brands fa-github"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <a class="logo" href="#home">Dev Erick<span>.</span></a>
+            <p>Construindo, aprendendo e evoluindo em tecnologia.</p>
+            <span>© <span id="year"></span> Erick Machado</span>
+        </div>
+    </footer>
+
+    <button class="back-to-top" aria-label="Voltar ao topo" title="Voltar ao topo">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <div class="modal" id="projectModal" aria-hidden="true">
+        <div class="modal-backdrop" data-close-modal></div>
+        <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="modal-close" type="button" aria-label="Fechar projeto" data-close-modal>
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="modal-icon" id="modalIcon"></div>
+            <span class="project-type" id="modalType"></span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalDescription"></p>
+            <div class="project-tags" id="modalTags"></div>
+            <div class="modal-actions">
+                <a class="btn btn-primary" id="modalGithub" href="#" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-github"></i> GitHub
+                </a>
+                <a class="btn btn-secondary" id="modalDemo" href="#" target="_blank" rel="noopener">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Demo
+                </a>
+
+                
+                
+            </div>
+        </div>
+        
+    </div>
+
+    <a 
+    href="https://wa.me/5511940034087"
+    class="whatsapp-float"
+    target="_blank"
+    rel="noopener"
+    aria-label="Falar comigo pelo WhatsApp"
+    title="Falar comigo pelo WhatsApp"
+>
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+
+    
+</body>
+</html>
