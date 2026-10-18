@@ -1,17 +1,17 @@
 :root {
-    --bg: #030305;
-    --bg-soft: #0a0a10;
-    --card: #0f0f17;
-    --card-hover: #15151f;
+    --bg: #000000;
+    --bg-soft: #0a0a0a;
+    --card: #111111;
+    --card-hover: #181818;
     --text: #f4f6fb;
     --muted: #a5adbd;
     --border: rgba(255, 255, 255, 0.09);
 
-    /* Paleta principal: roxo + cor secundária (troque só estas 4 linhas) */
-    --accent: #8b5cf6;
-    --accent-rgb: 139, 92, 246;
-    --accent-2: #22d3ee;
-    --accent-2-rgb: 34, 211, 238;
+    /* Paleta principal: laranja + vermelho (troque só estas 4 linhas) */
+    --accent: #ff7a1a;
+    --accent-rgb: 255, 122, 26;
+    --accent-2: #ef3b2d;
+    --accent-2-rgb: 239, 59, 45;
 
     --success: #55d6be;
     --danger: #ff6b81;
@@ -50,32 +50,6 @@ body {
     line-height: 1.7;
     overflow-x: hidden;
     transition: background .3s ease, color .3s ease;
-}
-
-/* Fundo preto com degradê roxo → ciano que se move devagar */
-body::before {
-    content: "";
-    position: fixed;
-    inset: -20%;
-    z-index: -1;
-    pointer-events: none;
-    background:
-        radial-gradient(ellipse 45% 40% at 15% 15%, rgba(var(--accent-rgb), .22), transparent 70%),
-        radial-gradient(ellipse 40% 35% at 85% 35%, rgba(var(--accent-2-rgb), .14), transparent 70%),
-        radial-gradient(ellipse 50% 40% at 40% 95%, rgba(var(--accent-rgb), .12), transparent 70%),
-        linear-gradient(180deg, #000 0%, #07040f 50%, #000 100%);
-    animation: bgDrift 24s ease-in-out infinite alternate;
-}
-
-.light-theme body::before {
-    background:
-        radial-gradient(ellipse 45% 40% at 15% 15%, rgba(var(--accent-rgb), .10), transparent 70%),
-        radial-gradient(ellipse 40% 35% at 85% 35%, rgba(var(--accent-2-rgb), .08), transparent 70%);
-}
-
-@keyframes bgDrift {
-    0%   { transform: translate(0, 0) rotate(0deg); }
-    100% { transform: translate(4%, -3%) rotate(4deg); }
 }
 
 body.menu-open,
@@ -251,7 +225,7 @@ button {
 .eyebrow,
 .section-kicker {
     display: inline-block;
-    color: #aeb5ff;
+    color: #ffb37a;
     font-size: .78rem;
     font-weight: 800;
     letter-spacing: .16em;
@@ -434,10 +408,10 @@ button {
     color: #303747;
 }
 
-.code-keyword { color: #c792ea; }
-.code-name { color: #82aaff; }
-.code-string { color: #c3e88d; }
-.code-function { color: #82aaff; }
+.code-keyword { color: #ff8a4c; }
+.code-name { color: #ffd166; }
+.code-string { color: #9fe39a; }
+.code-function { color: #ffb36b; }
 
 .floating-card {
     position: absolute;
@@ -671,7 +645,7 @@ button {
 }
 
 .timeline-date {
-    color: #aeb5ff;
+    color: #ffb37a;
     font-size: .76rem;
     font-weight: 800;
     letter-spacing: .08em;
@@ -779,10 +753,10 @@ button {
     bottom: -80px;
 }
 
-.project-java { background: linear-gradient(135deg, #101328, #111b2b); }
-.project-csharp { background: linear-gradient(135deg, #171126, #111b2b); }
-.project-web { background: linear-gradient(135deg, #101a1b, #11182b); }
-.project-data { background: linear-gradient(135deg, #15122a, #102329); }
+.project-java { background: linear-gradient(135deg, #1f0e05, #160707); }
+.project-csharp { background: linear-gradient(135deg, #1c0a0a, #1a0f05); }
+.project-web { background: linear-gradient(135deg, #1a1005, #120808); }
+.project-data { background: linear-gradient(135deg, #1d0c06, #140a0a); }
 
 .project-icon {
     position: relative;
@@ -821,7 +795,7 @@ button {
 }
 
 .project-type {
-    color: #aeb5ff;
+    color: #ffb37a;
     font-size: .72rem;
     font-weight: 800;
     letter-spacing: .08em;
@@ -853,7 +827,7 @@ button {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: #cfd4ff;
+    color: #ffd2b0;
     background: transparent;
     cursor: pointer;
     font-size: .84rem;
@@ -1361,8 +1335,8 @@ button {
     padding: 2rem 0;
 }
 
-.project-tasks { background: linear-gradient(135deg, #1a0f33, #0b1f2a); }
-.project-stock { background: linear-gradient(135deg, #0a2128, #1a1033); }
+.project-tasks { background: linear-gradient(135deg, #24100a, #120606); }
+.project-stock { background: linear-gradient(135deg, #120606, #261406); }
 
 /* ---------- Animação do mouse ---------- */
 .cursor-dot,
@@ -1445,5 +1419,83 @@ body.cursor-down .cursor-ring {
     .cursor-ring,
     .cursor-glow {
         display: none;
+    }
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* ---------- Prints dos projetos ---------- */
+.project-visual.has-image {
+    place-items: stretch;
+    background: #0a0a0a;
+}
+
+.project-visual.has-image::before,
+.project-visual.has-image::after {
+    display: none;
+}
+
+.project-shot {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform .5s ease;
+}
+
+.project-card:hover .project-shot {
+    transform: scale(1.04);
+}
+
+.project-visual.has-image .project-label {
+    position: absolute;
+    z-index: 1;
+    backdrop-filter: blur(6px);
+}
+
+.modal-image {
+    display: block;
+    width: 100%;
+    max-height: 320px;
+    margin-bottom: 22px;
+    object-fit: cover;
+    object-position: top center;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+/* ---------- Foto do "Sobre" ---------- */
+.about-photo {
+    position: relative;
+    margin: 0 0 8px;
+    border-radius: var(--radius);
+    padding: 3px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+}
+
+.about-photo-frame {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: calc(var(--radius) - 3px);
+    background: var(--card);
+}
+
+/* Recorte da foto: enquadra rosto e tronco */
+.about-photo img {
+    position: absolute;
+    display: block;
+    width: 240%;
+    height: auto;
+    max-width: none;
+    left: -35%;
+    top: -92%;
+}
+
+@media (max-width: 720px) {
+    .project-shot {
+        height: 160px;
     }
 }

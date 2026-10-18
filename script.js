@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
             type: "Aplicação Web • Em uso real",
             icon: '<i class="fa-solid fa-boxes-stacked"></i>',
             visual: "project-stock",
+            image: "img/almoxarifado.png",
             label: "Apps Script + Sheets",
             description:
                 "App mobile que substituiu as anotações em papel do almoxarifado da SINALVIDA: retiradas com assinatura digital na tela, estoque atualizado em tempo real, etiquetas com QR Code, controle de ferramentas em posse e relatórios em PDF/planilha com e-mails automáticos — sem servidor e sem custo de licença.",
@@ -25,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
             type: "Backend • Projeto pessoal",
             icon: '<i class="fa-solid fa-list-check"></i>',
             visual: "project-tasks",
+            image: "img/gerenciador-tarefas.png",
             label: "Java 17",
             description:
                 "Aplicação em Java com arquitetura em camadas (model, service, repository, ui) para criar, filtrar e priorizar tarefas, com detecção de atrasos, painel de estatísticas, salvamento seguro em CSV, testes automatizados com JUnit e CI no GitHub Actions.",
@@ -49,14 +51,15 @@ document.addEventListener("DOMContentLoaded", () => {
         {
             id: 2,
             name: "Controle Financeiro",
-            category: ["backend"],
+            category: ["backend", "web"],
             type: "Sistema Web • Projeto de formação",
             icon: '<i class="fa-solid fa-wallet"></i>',
             visual: "project-csharp",
-            label: "C# + MySQL",
+            image: "img/controle-financeiro.png",
+            label: "ASP.NET Core MVC",
             description:
-                "Sistema para organização de receitas e despesas, desenvolvido com C# e MySQL durante a formação.",
-            technologies: ["C#", "MySQL", "CRUD", "Banco de Dados"],
+                "Sistema web de controle financeiro pessoal com dashboard, gráficos de receitas x despesas, filtros por período e categoria e cálculo automático de saldo. Arquitetura MVC com Controllers, Services, Interfaces e ViewModels, injeção de dependência e persistência com Entity Framework Core e migrations.",
+            technologies: ["C#", "ASP.NET Core MVC", "Entity Framework Core", "MySQL", "LINQ", "Injeção de Dependência"],
             github: "https://github.com/gmachhh/ControleFinanceiroV2",
             demo: "https://github.com/gmachhh/ControleFinanceiroV2"
         },
@@ -107,6 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const modal = $("#projectModal");
     const modalTitle = $("#modalTitle");
     const modalIcon = $("#modalIcon");
+    const modalImage = $("#modalImage");
     const modalType = $("#modalType");
     const modalDescription = $("#modalDescription");
     const modalTags = $("#modalTags");
@@ -393,8 +397,10 @@ document.addEventListener("DOMContentLoaded", () => {
         projectsGrid.innerHTML = filteredProjects.map(project => `
             <article class="project-card reveal visible"
                      data-project-id="${project.id}">
-                <div class="project-visual ${project.visual}">
-                    <span class="project-icon">${project.icon}</span>
+                <div class="project-visual ${project.visual} ${project.image ? "has-image" : ""}">
+                    ${project.image
+                        ? `<img class="project-shot" src="${project.image}" alt="Tela do projeto ${escapeHtml(project.name)}" loading="lazy">`
+                        : `<span class="project-icon">${project.icon}</span>`}
                     <span class="project-label">${escapeHtml(project.label)}</span>
                 </div>
 
@@ -437,8 +443,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     filterButtons.forEach(button => {
         button.addEventListener("click", () => {
-            filterButtons.forEach(btn => btn.classList.remove("active"));
-            button.classList.add("active");
+            filterButtons.forEach(btn => {
+                btn.classList.toggle("active", btn === button);
+                btn.setAttribute("aria-pressed", String(btn === button));
+            });
 
             renderProjects(button.dataset.filter);
         });
@@ -450,6 +458,14 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!project) return;
 
         modalIcon.innerHTML = project.icon;
+        modalIcon.hidden = Boolean(project.image);
+        modalImage.hidden = !project.image;
+
+        if (project.image) {
+            modalImage.src = project.image;
+            modalImage.alt = `Tela do projeto ${project.name}`;
+        }
+
         modalType.textContent = project.type;
         modalTitle.textContent = project.name;
         modalDescription.textContent = project.description;
@@ -463,6 +479,8 @@ document.addEventListener("DOMContentLoaded", () => {
         modalDemo.href = hasDemo ? project.demo : "#";
         modalDemo.hidden = !hasDemo;
 
+        lastFocused = document.activeElement;
+
         modal.classList.add("open");
         modal.setAttribute("aria-hidden", "false");
         document.body.classList.add("modal-open");
@@ -470,11 +488,39 @@ document.addEventListener("DOMContentLoaded", () => {
         modalCloseButton?.focus();
     }
 
+    let lastFocused = null;
+
     function closeModal() {
+        if (!modal.classList.contains("open")) return;
+
         modal.classList.remove("open");
         modal.setAttribute("aria-hidden", "true");
         document.body.classList.remove("modal-open");
+
+        // Devolve o foco ao botão que abriu o modal.
+        lastFocused?.focus();
     }
+
+    // Mantém o Tab dentro do modal enquanto ele estiver aberto.
+    modal.addEventListener("keydown", event => {
+        if (event.key !== "Tab") return;
+
+        const focusable = $$("a[href]:not([hidden]), button:not([hidden])", modal)
+            .filter(el => el.offsetParent !== null);
+
+        if (!focusable.length) return;
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+        }
+    });
 
     const modalCloseButton = $(".modal-close");
 

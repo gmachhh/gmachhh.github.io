@@ -18,6 +18,11 @@
     <meta property="og:title" content="Erick Machado | Desenvolvedor Backend em Formação">
     <meta property="og:description" content="Estudante de Ciência e Tecnologia na UFABC, desenvolvedor backend em formação com foco em Java.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gmachhh.github.io/">
+    <meta property="og:image" content="https://gmachhh.github.io/img/og-cover.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
 
     <script>
         try { if (localStorage.getItem("portfolio-theme") === "light") document.documentElement.classList.add("light-theme"); } catch {}
@@ -59,8 +64,8 @@
                     <span class="eyebrow">Olá, eu sou o Erick 👋</span>
 
                     <h1>
-                        Desenvolvedor Backend em formação
-                        <span class="gradient-text">& estudante de Tecnologia.</span>
+                        Desenvolvedor Backend
+                        <span class="gradient-text">em formação.</span>
                     </h1>
 
                     <p class="hero-description">
@@ -151,13 +156,16 @@
                         </p>
                         <p>
                             Em projetos acadêmicos e de formação, tive contato com tecnologias como
-                            <strong>C#, SQL Server, HTML, CSS, JavaScript e Java</strong>. Meu objetivo é
+                            <strong>Java, C#, ASP.NET Core, MySQL, HTML, CSS e JavaScript</strong>. Meu objetivo é
                             iniciar e desenvolver minha carreira em Tecnologia, especialmente em
                             desenvolvimento de software e backend.
                         </p>
                     </div>
 
                     <div class="about-highlights reveal">
+                        <figure class="about-photo">
+                            <div class="about-photo-frame"><img src="img/erick.webp" alt="Foto de Erick Machado" width="960" height="1280" loading="lazy"></div>
+                        </figure>
                         <div class="highlight-card">
                             <i class="fa-solid fa-graduation-cap"></i>
                             <div><strong>UFABC</strong><span>Ciência e Tecnologia</span></div>
@@ -198,9 +206,9 @@
                         <span>Sistema em uso real</span>
                     </div>
                     <div class="stat-card reveal">
-                        <i class="fa-solid fa-rocket"></i>
-                        <strong class="counter" data-target="100" data-suffix="%">0%</strong>
-                        <span>Foco em evolução</span>
+                        <i class="fa-solid fa-terminal"></i>
+                        <strong class="counter" data-target="3">0</strong>
+                        <span>Linguagens em projetos: Java, C# e JavaScript</span>
                     </div>
                 </div>
             </div>
@@ -219,7 +227,7 @@
                         <div class="skill-group-title"><i class="fa-solid fa-code"></i><h3>Desenvolvimento</h3></div>
                         <div class="tags">
                             <span>Java</span><span>C#</span><span>JavaScript</span><span>TypeScript</span>
-                            <span>HTML5</span><span>CSS3</span><span>React</span><span>Node.js</span>
+                            <span>ASP.NET Core</span><span>Entity Framework</span><span>HTML5</span><span>CSS3</span><span>React</span><span>Node.js</span>
                             <span>POO</span><span>Arquitetura em camadas</span><span>Lógica de Programação</span>
                         </div>
                     </article>
@@ -296,8 +304,8 @@
                         <div class="timeline-card">
                             <span class="timeline-date">Projeto prático</span>
                             <h3>Sistema de Controle Financeiro</h3>
-                            <h4>C# + SQL Server</h4>
-                            <p>Projeto desenvolvido durante a formação, envolvendo cadastro, controle de despesas e organização de informações financeiras.</p>
+                            <h4>C# · ASP.NET Core MVC · Entity Framework · MySQL</h4>
+                            <p>Sistema web com dashboard, gráficos, filtros e gestão de receitas, despesas e categorias, organizado em Controllers, Services e ViewModels com injeção de dependência.</p>
                         </div>
                     </article>
                 </div>
@@ -312,10 +320,11 @@
                     <p>Projetos acadêmicos, de estudo e desenvolvimento pessoal.</p>
                 </div>
 
-                <div class="filter-buttons reveal" role="tablist" aria-label="Filtrar projetos">
-                    <button class="filter-btn active" data-filter="all" type="button">Todos</button>
-                    <button class="filter-btn" data-filter="backend" type="button">Backend</button>
-                    <button class="filter-btn" data-filter="web" type="button">Web</button>                </div>
+                <div class="filter-buttons reveal" role="group" aria-label="Filtrar projetos">
+                    <button class="filter-btn active" data-filter="all" type="button" aria-pressed="true">Todos</button>
+                    <button class="filter-btn" data-filter="backend" type="button" aria-pressed="false">Backend</button>
+                    <button class="filter-btn" data-filter="web" type="button" aria-pressed="false">Web</button>
+                </div>
 
                 <div class="projects-grid" id="projectsGrid"></div>
             </div>
@@ -399,6 +408,7 @@
             <button class="modal-close" type="button" aria-label="Fechar projeto" data-close-modal>
                 <i class="fa-solid fa-xmark"></i>
             </button>
+            <img class="modal-image" id="modalImage" alt="" hidden>
             <div class="modal-icon" id="modalIcon"></div>
             <span class="project-type" id="modalType"></span>
             <h2 id="modalTitle"></h2>
