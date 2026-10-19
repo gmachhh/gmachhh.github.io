@@ -6,31 +6,35 @@ document.addEventListener("DOMContentLoaded", () => {
     const projects = [
         {
             id: 5,
-            name: "Almoxarifado Digital",
+            name: { pt: "Almoxarifado Digital", en: "Digital Stockroom" },
             category: ["web"],
-            type: "Aplicação Web • Em uso real",
+            type: { pt: "Aplicação Web • Em uso real", en: "Web App • In real-world use" },
             icon: '<i class="fa-solid fa-boxes-stacked"></i>',
             visual: "project-stock",
             image: "img/almoxarifado.png",
             label: "Apps Script + Sheets",
-            description:
-                "App mobile que substituiu as anotações em papel do almoxarifado da SINALVIDA: retiradas com assinatura digital na tela, estoque atualizado em tempo real, etiquetas com QR Code, controle de ferramentas em posse e relatórios em PDF/planilha com e-mails automáticos — sem servidor e sem custo de licença.",
-            technologies: ["Google Apps Script", "JavaScript", "HTML", "CSS", "Google Planilhas", "QR Code"],
+            description: {
+                pt: "App mobile que substituiu as anotações em papel do almoxarifado da SINALVIDA: retiradas com assinatura digital na tela, estoque atualizado em tempo real, etiquetas com QR Code, controle de ferramentas em posse e relatórios em PDF/planilha com e-mails automáticos — sem servidor e sem custo de licença.",
+                en: "Mobile app that replaced the paper logs of SINALVIDA's stockroom: withdrawals with on-screen digital signatures, real-time inventory, QR Code labels, tracking of tools in use and PDF/spreadsheet reports with automated emails — no server and no license costs."
+            },
+            technologies: ["Google Apps Script", "JavaScript", "HTML", "CSS", { pt: "Google Planilhas", en: "Google Sheets" }, "QR Code"],
             github: "https://github.com/gmachhh/almoxarifado-digital",
             demo: "#"
         },
         {
             id: 6,
-            name: "Gerenciador de Tarefas",
+            name: { pt: "Gerenciador de Tarefas", en: "Task Manager" },
             category: ["backend"],
-            type: "Backend • Projeto pessoal",
+            type: { pt: "Backend • Projeto pessoal", en: "Backend • Personal project" },
             icon: '<i class="fa-solid fa-list-check"></i>',
             visual: "project-tasks",
             image: "img/gerenciador-tarefas.png",
             label: "Java 17",
-            description:
-                "Aplicação em Java com arquitetura em camadas (model, service, repository, ui) para criar, filtrar e priorizar tarefas, com detecção de atrasos, painel de estatísticas, salvamento seguro em CSV, testes automatizados com JUnit e CI no GitHub Actions.",
-            technologies: ["Java 17", "POO", "Maven", "JUnit", "Streams", "GitHub Actions"],
+            description: {
+                pt: "Aplicação em Java com arquitetura em camadas (model, service, repository, ui) para criar, filtrar e priorizar tarefas, com detecção de atrasos, painel de estatísticas, salvamento seguro em CSV, testes automatizados com JUnit e CI no GitHub Actions.",
+                en: "Java application with a layered architecture (model, service, repository, ui) to create, filter and prioritize tasks, featuring overdue detection, a statistics panel, safe CSV persistence, automated tests with JUnit and CI on GitHub Actions."
+            },
+            technologies: ["Java 17", { pt: "POO", en: "OOP" }, "Maven", "JUnit", "Streams", "GitHub Actions"],
             github: "https://github.com/gmachhh/gerenciador-de-tarefas",
             demo: "#"
         },
@@ -50,16 +54,18 @@ document.addEventListener("DOMContentLoaded", () => {
         },*/
         {
             id: 2,
-            name: "Controle Financeiro",
+            name: { pt: "Controle Financeiro", en: "Personal Finance Manager" },
             category: ["backend", "web"],
-            type: "Sistema Web • Projeto de formação",
+            type: { pt: "Sistema Web • Projeto de formação", en: "Web System • Training project" },
             icon: '<i class="fa-solid fa-wallet"></i>',
             visual: "project-csharp",
             image: "img/controle-financeiro.png",
             label: "ASP.NET Core MVC",
-            description:
-                "Sistema web de controle financeiro pessoal com dashboard, gráficos de receitas x despesas, filtros por período e categoria e cálculo automático de saldo. Arquitetura MVC com Controllers, Services, Interfaces e ViewModels, injeção de dependência e persistência com Entity Framework Core e migrations.",
-            technologies: ["C#", "ASP.NET Core MVC", "Entity Framework Core", "MySQL", "LINQ", "Injeção de Dependência"],
+            description: {
+                pt: "Sistema web de controle financeiro pessoal com dashboard, gráficos de receitas x despesas, filtros por período e categoria e cálculo automático de saldo. Arquitetura MVC com Controllers, Services, Interfaces e ViewModels, injeção de dependência e persistência com Entity Framework Core e migrations.",
+                en: "Personal finance web system with a dashboard, income vs. expense charts, filters by period and category and automatic balance calculation. MVC architecture with Controllers, Services, Interfaces and ViewModels, dependency injection and persistence with Entity Framework Core and migrations."
+            },
+            technologies: ["C#", "ASP.NET Core MVC", "Entity Framework Core", "MySQL", "LINQ", { pt: "Injeção de Dependência", en: "Dependency Injection" }],
             github: "https://github.com/gmachhh/ControleFinanceiroV2",
             demo: "https://github.com/gmachhh/ControleFinanceiroV2"
         },
@@ -117,6 +123,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalGithub = $("#modalGithub");
     const modalDemo = $("#modalDemo");
     const toastContainer = $("#toastContainer");
+
+    /* ---------- Idioma (PT / EN) ---------- */
+
+    const LANGS = window.I18N || { pt: {} };
+    const LANG_KEY = "portfolio-lang";
+
+    function detectLanguage() {
+        try {
+            const saved = localStorage.getItem(LANG_KEY);
+            if (saved && LANGS[saved]) return saved;
+        } catch {
+            // Sem acesso ao armazenamento: segue para o idioma do navegador.
+        }
+
+        const browserLang = (navigator.language || "pt").toLowerCase();
+        return browserLang.startsWith("pt") || !LANGS.en ? "pt" : "en";
+    }
+
+    let lang = detectLanguage();
+
+    // Texto da chave no idioma atual (cai para o português se faltar).
+    const t = key => LANGS[lang]?.[key] ?? LANGS.pt[key] ?? key;
+
+    // Campo bilíngue { pt, en } ou texto simples.
+    const tr = value =>
+        value && typeof value === "object" && !Array.isArray(value)
+            ? value[lang] ?? value.pt
+            : value;
 
     const escapeHtml = (value) => {
         const div = document.createElement("div");
@@ -176,9 +210,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (copied) {
-            showToast("E-mail copiado para a área de transferência.");
+            showToast(t("toast.copied"));
         } else {
-            showToast(`Não foi possível copiar. Meu e-mail: ${text}`, "error");
+            showToast(`${t("toast.copyFailed")} ${text}`, "error");
         }
     }
 
@@ -186,10 +220,16 @@ document.addEventListener("DOMContentLoaded", () => {
         yearElement.textContent = new Date().getFullYear();
     }
 
+    function updateMenuLabel() {
+        const isOpen = nav?.classList.contains("open");
+        menuToggle?.setAttribute("aria-label", t(isOpen ? "header.menuClose" : "header.menuOpen"));
+    }
+
     function closeMenu() {
         nav?.classList.remove("open");
         document.body.classList.remove("menu-open");
         menuToggle?.setAttribute("aria-expanded", "false");
+        updateMenuLabel();
 
         const icon = $("i", menuToggle);
 
@@ -204,6 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         menuToggle.setAttribute("aria-expanded", String(isOpen));
         document.body.classList.toggle("menu-open", isOpen);
+        updateMenuLabel();
 
         const icon = $("i", menuToggle);
 
@@ -242,32 +283,161 @@ document.addEventListener("DOMContentLoaded", () => {
         const progress = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0;
 
         if (progressBar) {
-            progressBar.style.width = `${progress}%`;
+            // scaleX não força o navegador a recalcular o layout a cada rolagem.
+            progressBar.style.transform = `scaleX(${progress / 100})`;
         }
     }
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+
     handleScroll();
 
-    backToTop?.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+    // Rolagem suave própria: não depende do navegador e não "trava" com o tempo.
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let scrollAnimation = null;
+    let isAutoScrolling = false;
+
+    function stopScrollAnimation() {
+        if (scrollAnimation) {
+            cancelAnimationFrame(scrollAnimation);
+            scrollAnimation = null;
+        }
+
+        if (isAutoScrolling) {
+            onScrollEnd = null;
+            finishScroll();
+        }
+    }
+
+    const root = document.documentElement;
+    let onScrollEnd = null;
+
+    function finishScroll() {
+        root.style.scrollBehavior = "";
+        isAutoScrolling = false;
+
+        const callback = onScrollEnd;
+        onScrollEnd = null;
+        callback?.();
+    }
+
+    // getTargetY é uma função: o destino é recalculado a cada quadro,
+    // então a rolagem chega no lugar certo mesmo se algo mudar de tamanho no caminho.
+    function smoothScrollTo(getTargetY, done) {
+        stopScrollAnimation();
+
+        const clamp = y => Math.max(0, Math.min(y, root.scrollHeight - window.innerHeight));
+        const startY = window.scrollY;
+        const distance = Math.abs(clamp(getTargetY()) - startY);
+
+        onScrollEnd = done || null;
+
+        // O CSS "scroll-behavior: smooth" brigaria com a animação quadro a quadro.
+        root.style.scrollBehavior = "auto";
+        isAutoScrolling = true;
+
+        if (prefersReducedMotion.matches || distance < 2) {
+            window.scrollTo(0, clamp(getTargetY()));
+            finishScroll();
+            return;
+        }
+
+        // Duração proporcional à distância, entre 550ms e 1200ms.
+        const duration = Math.min(1200, Math.max(550, distance * 0.4));
+        const easeInOutQuart = t => (t < 0.5 ? 8 * t ** 4 : 1 - Math.pow(-2 * t + 2, 4) / 2);
+        let startTime = null;
+
+        function step(now) {
+            if (startTime === null) startTime = now;
+
+            const progress = Math.min((now - startTime) / duration, 1);
+            const endY = clamp(getTargetY());
+
+            window.scrollTo(0, startY + (endY - startY) * easeInOutQuart(progress));
+
+            if (progress < 1) {
+                scrollAnimation = requestAnimationFrame(step);
+            } else {
+                scrollAnimation = null;
+                finishScroll();
+            }
+        }
+
+        scrollAnimation = requestAnimationFrame(step);
+    }
+
+    function setActiveLink(id) {
+        navLinks.forEach(link => {
+            link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
+        });
+    }
+
+    function scrollToSection(selector) {
+        const target = $(selector);
+
+        if (!target) return;
+
+        // Marca o destino no menu na hora, em vez de "piscar" por todas as seções do caminho.
+        if (target.id) setActiveLink(target.id);
+
+        smoothScrollTo(() => {
+            if (target.id === "home") return 0;
+
+            const headerOffset = (header?.offsetHeight || 76) + 10;
+            return target.getBoundingClientRect().top + window.scrollY - headerOffset;
+        }, () => {
+            // Leva o foco para a seção (acessibilidade) sem provocar um novo salto.
+            target.setAttribute("tabindex", "-1");
+            target.focus({ preventScroll: true });
+        });
+    }
+
+    // Se a pessoa girar a rodinha ou tocar na tela, ela assume o controle.
+    ["wheel", "touchstart"].forEach(type => {
+        window.addEventListener(type, stopScrollAnimation, { passive: true });
     });
 
-    if (typingElement) {
-        const words = [
-            "Java",
-            "JavaScript",
-            "Backend",
-            "Desenvolvimento Web",
-            "Testes automatizados"
-        ];
+    const scrollKeys = ["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "];
 
+    window.addEventListener("keydown", event => {
+        if (scrollKeys.includes(event.key)) stopScrollAnimation();
+    });
+
+    document.addEventListener("click", event => {
+        const link = event.target.closest('a[href^="#"]');
+
+        if (!link) return;
+
+        const hash = link.getAttribute("href");
+
+        if (hash.length < 2 || !$(hash)) return;
+
+        event.preventDefault();
+        scrollToSection(hash);
+        history.replaceState(null, "", hash);
+    });
+
+    backToTop?.addEventListener("click", () => {
+        scrollToSection("#home");
+        history.replaceState(null, "", "#home");
+    });
+    // Recomeça o texto animado (usado ao trocar de idioma).
+    let resetTyping = () => {};
+
+    if (typingElement) {
         let wordIndex = 0;
         let charIndex = 0;
         let deleting = false;
 
+        resetTyping = () => {
+            wordIndex = 0;
+            charIndex = 0;
+            deleting = false;
+        };
+
         function type() {
-            const word = words[wordIndex];
+            const words = t("hero.typing");
+            const word = words[wordIndex % words.length];
 
             typingElement.textContent = deleting
                 ? word.substring(0, charIndex - 1)
@@ -286,7 +456,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (charIndex === 0) {
                     deleting = false;
-                    wordIndex = (wordIndex + 1) % words.length;
+                    wordIndex = (wordIndex + 1) % t("hero.typing").length;
                 }
             }
 
@@ -296,42 +466,63 @@ document.addEventListener("DOMContentLoaded", () => {
         type();
     }
 
-    const revealElements = $$(".reveal");
+    // Elementos irmãos entram em cascata (um logo depois do outro).
+    function setRevealDelay(element) {
+        const siblings = [...element.parentElement.children].filter(el => el.classList.contains("reveal"));
+        const index = Math.max(0, siblings.indexOf(element));
 
-    if ("IntersectionObserver" in window) {
-        const revealObserver = new IntersectionObserver(
+        element.style.setProperty("--reveal-delay", `${Math.min(index, 6) * 90}ms`);
+    }
+
+    // Terminada a entrada, a classe sai: assim o efeito de hover/inclinação
+    // volta a ser rápido, sem herdar a transição lenta da animação.
+    function cleanupReveal(element) {
+        element.addEventListener("transitionend", function done(event) {
+            if (event.target !== element || event.propertyName !== "opacity") return;
+
+            element.removeEventListener("transitionend", done);
+            element.classList.remove("reveal", "visible");
+            element.style.removeProperty("--reveal-delay");
+        });
+    }
+
+    const revealObserver = "IntersectionObserver" in window
+        ? new IntersectionObserver(
             entries => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("visible");
-                        revealObserver.unobserve(entry.target);
-                    }
+                    if (!entry.isIntersecting) return;
+
+                    cleanupReveal(entry.target);
+                    entry.target.classList.add("visible");
+                    revealObserver.unobserve(entry.target);
                 });
             },
-            { threshold: 0.12 }
-        );
+            { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+        )
+        : null;
 
-        revealElements.forEach(element => revealObserver.observe(element));
-    } else {
-        revealElements.forEach(element => element.classList.add("visible"));
+    function observeReveal(element) {
+        if (!revealObserver || prefersReducedMotion.matches) {
+            element.classList.remove("reveal");
+            return;
+        }
+
+        setRevealDelay(element);
+        revealObserver.observe(element);
     }
+
+    $$(".reveal").forEach(observeReveal);
 
     const sections = $$("main section[id]");
 
     if ("IntersectionObserver" in window) {
         const sectionObserver = new IntersectionObserver(
             entries => {
+                // Durante a rolagem automática, o menu já mostra o destino.
+                if (isAutoScrolling) return;
+
                 entries.forEach(entry => {
-                    if (!entry.isIntersecting) return;
-
-                    const currentId = entry.target.id;
-
-                    navLinks.forEach(link => {
-                        link.classList.toggle(
-                            "active",
-                            link.getAttribute("href") === `#${currentId}`
-                        );
-                    });
+                    if (entry.isIntersecting) setActiveLink(entry.target.id);
                 });
             },
             {
@@ -361,7 +552,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         themeToggle?.setAttribute(
             "aria-label",
-            isLight ? "Ativar tema escuro" : "Ativar tema claro"
+            t(isLight ? "theme.toDark" : "theme.toLight")
         );
     }
 
@@ -377,43 +568,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
         updateThemeIcon();
 
-        showToast(
-            isLight
-                ? "Tema claro ativado."
-                : "Tema escuro ativado."
-        );
+        showToast(t(isLight ? "toast.light" : "toast.dark"));
     });
 
-    function renderProjects(filter = "all") {
+    let currentFilter = "all";
+
+    function renderProjects(filter = currentFilter, { animate = true } = {}) {
+        currentFilter = filter;
+
         const filteredProjects = projects.filter(project => {
             return filter === "all" || project.category.includes(filter);
         });
 
         if (!filteredProjects.length) {
-            projectsGrid.innerHTML = `<p class="projects-empty">Em breve, novos projetos nesta categoria.</p>`;
+            projectsGrid.innerHTML = `<p class="projects-empty">${escapeHtml(t("projects.empty"))}</p>`;
             return;
         }
 
         projectsGrid.innerHTML = filteredProjects.map(project => `
-            <article class="project-card reveal visible"
+            <article class="project-card spotlight ${animate ? "reveal" : ""}"
                      data-project-id="${project.id}">
                 <div class="project-visual ${project.visual} ${project.image ? "has-image" : ""}">
                     ${project.image
-                        ? `<img class="project-shot" src="${project.image}" alt="Tela do projeto ${escapeHtml(project.name)}" loading="lazy">`
+                        ? `<img class="project-shot" src="${project.image}" alt="${escapeHtml(`${t("projects.screenshot")} ${tr(project.name)}`)}" loading="lazy">`
                         : `<span class="project-icon">${project.icon}</span>`}
-                    <span class="project-label">${escapeHtml(project.label)}</span>
+                    <span class="project-label">${escapeHtml(tr(project.label))}</span>
                 </div>
 
                 <div class="project-body">
-                    <span class="project-type">${escapeHtml(project.type)}</span>
+                    <span class="project-type">${escapeHtml(tr(project.type))}</span>
 
-                    <h3>${escapeHtml(project.name)}</h3>
+                    <h3>${escapeHtml(tr(project.name))}</h3>
 
-                    <p>${escapeHtml(project.description)}</p>
+                    <p>${escapeHtml(tr(project.description))}</p>
 
                     <div class="project-tags">
                         ${project.technologies.map(tag =>
-                            `<span>${escapeHtml(tag)}</span>`
+                            `<span>${escapeHtml(tr(tag))}</span>`
                         ).join("")}
                     </div>
 
@@ -421,7 +612,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <button type="button"
                                 class="open-project"
                                 data-project-id="${project.id}">
-                            Detalhes
+                            ${escapeHtml(t("projects.details"))}
                             <i class="fa-solid fa-arrow-right"></i>
                         </button>
 
@@ -436,10 +627,9 @@ document.addEventListener("DOMContentLoaded", () => {
             </article>
         `).join("");
 
+        if (animate) $$(".project-card", projectsGrid).forEach(observeReveal);
         initCardTilt();
     }
-
-    renderProjects();
 
     filterButtons.forEach(button => {
         button.addEventListener("click", () => {
@@ -463,15 +653,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (project.image) {
             modalImage.src = project.image;
-            modalImage.alt = `Tela do projeto ${project.name}`;
+            modalImage.alt = `${t("projects.screenshot")} ${tr(project.name)}`;
         }
 
-        modalType.textContent = project.type;
-        modalTitle.textContent = project.name;
-        modalDescription.textContent = project.description;
+        modalType.textContent = tr(project.type);
+        modalTitle.textContent = tr(project.name);
+        modalDescription.textContent = tr(project.description);
 
         modalTags.innerHTML = project.technologies
-            .map(tag => `<span>${escapeHtml(tag)}</span>`)
+            .map(tag => `<span>${escapeHtml(tr(tag))}</span>`)
             .join("");
 
         modalGithub.href = project.github;
@@ -654,12 +844,18 @@ document.addEventListener("DOMContentLoaded", () => {
         document.addEventListener("mousemove", event => {
             mouseX = event.clientX;
             mouseY = event.clientY;
-            dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-            document.body.classList.add("cursor-active");
-            document.body.classList.toggle(
-                "cursor-hover",
-                Boolean(event.target.closest(interactive))
-            );
+            dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+
+            const hovering = Boolean(event.target.closest(interactive));
+
+            // Só mexe nas classes do <body> quando algo muda de fato.
+            if (!document.body.classList.contains("cursor-active")) {
+                document.body.classList.add("cursor-active");
+            }
+
+            if (hovering !== document.body.classList.contains("cursor-hover")) {
+                document.body.classList.toggle("cursor-hover", hovering);
+            }
         });
 
         document.addEventListener("mouseleave", () => {
@@ -688,19 +884,30 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         // O anel e o brilho seguem o mouse com atraso suave.
+        // O loop "dorme" quando o mouse para, para não gastar processamento à toa.
+        let followFrame = null;
+
         function followCursor() {
             ringX += (mouseX - ringX) * 0.18;
             ringY += (mouseY - ringY) * 0.18;
             glowX += (mouseX - glowX) * 0.08;
             glowY += (mouseY - glowY) * 0.08;
 
-            ring.style.transform = `translate(${ringX}px, ${ringY}px)`;
-            glow.style.transform = `translate(${glowX}px, ${glowY}px)`;
+            ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
+            glow.style.transform = `translate3d(${glowX}px, ${glowY}px, 0)`;
 
-            requestAnimationFrame(followCursor);
+            const settled =
+                Math.abs(mouseX - ringX) < 0.1 && Math.abs(mouseY - ringY) < 0.1 &&
+                Math.abs(mouseX - glowX) < 0.1 && Math.abs(mouseY - glowY) < 0.1;
+
+            followFrame = settled ? null : requestAnimationFrame(followCursor);
         }
 
-        followCursor();
+        function wakeCursor() {
+            if (!followFrame) followFrame = requestAnimationFrame(followCursor);
+        }
+
+        document.addEventListener("mousemove", wakeCursor, { passive: true });
     }
 
     /*Aqui copia E-mail*/
@@ -746,27 +953,27 @@ document.addEventListener("DOMContentLoaded", () => {
         let valid = true;
 
         if (name.length < 2) {
-            setFieldError("name", "Informe seu nome.");
+            setFieldError("name", t("contact.errorName"));
             valid = false;
         }
 
         if (!validateEmail(email)) {
-            setFieldError("email", "Informe um e-mail válido.");
+            setFieldError("email", t("contact.errorEmail"));
             valid = false;
         }
 
         if (subject.length < 3) {
-            setFieldError("subject", "Informe um assunto.");
+            setFieldError("subject", t("contact.errorSubject"));
             valid = false;
         }
 
         if (message.length < 10) {
-            setFieldError("message", "A mensagem precisa ter pelo menos 10 caracteres.");
+            setFieldError("message", t("contact.errorMessage"));
             valid = false;
         }
 
         if (!valid) {
-            showToast("Revise os campos destacados.", "error");
+            showToast(t("contact.review"), "error");
             return;
         }
 
@@ -774,15 +981,15 @@ document.addEventListener("DOMContentLoaded", () => {
             `mailto:${EMAIL}` +
             `?subject=${encodeURIComponent(subject)}` +
             `&body=${encodeURIComponent(
-                `Olá Erick,\n\n` +
-                `Meu nome é ${name}.\n` +
-                `Meu e-mail: ${email}\n\n` +
+                `${t("contact.mailGreeting")}\n\n` +
+                `${t("contact.mailName")} ${name}.\n` +
+                `${t("contact.mailEmail")} ${email}\n\n` +
                 `${message}`
             )}`;
 
         window.location.href = mailto;
 
-        showToast("Abrindo seu aplicativo de e-mail...");
+        showToast(t("contact.opening"));
     });
 
     function isTypingField() {
@@ -802,17 +1009,118 @@ document.addEventListener("DOMContentLoaded", () => {
         if (event.ctrlKey || event.metaKey || event.altKey) return;
 
         if (key === "h") {
-            $("#home")?.scrollIntoView({ behavior: "smooth" });
+            smoothScrollTo(0);
         }
 
         if (key === "p") {
-            $("#projects")?.scrollIntoView({ behavior: "smooth" });
+            scrollToSection("#projects");
         }
 
         if (key === "c") {
-            $("#contact")?.scrollIntoView({ behavior: "smooth" });
+            scrollToSection("#contact");
         }
     });
+
+    /* ---------- Aplicar idioma ---------- */
+
+    const langButtons = $$(".lang-switch [data-lang]");
+
+    function applyLanguage({ initial = false } = {}) {
+        document.documentElement.lang = lang === "pt" ? "pt-BR" : "en";
+        document.title = t("meta.title");
+        $('meta[name="description"]')?.setAttribute("content", t("meta.description"));
+
+        $$("[data-i18n]").forEach(el => {
+            el.textContent = t(el.dataset.i18n);
+        });
+
+        // Só usado com textos do próprio i18n.js (conteúdo confiável).
+        $$("[data-i18n-html]").forEach(el => {
+            el.innerHTML = t(el.dataset.i18nHtml);
+        });
+
+        // Formato: data-i18n-attr="atributo:chave;outro-atributo:outra-chave"
+        $$("[data-i18n-attr]").forEach(el => {
+            el.dataset.i18nAttr.split(";").forEach(pair => {
+                const [attr, key] = pair.split(":").map(part => part.trim());
+                if (attr && key) el.setAttribute(attr, t(key));
+            });
+        });
+
+        langButtons.forEach(button => {
+            button.setAttribute("aria-pressed", String(button.dataset.lang === lang));
+        });
+
+        updateThemeIcon();
+        updateMenuLabel();
+        updateClock();
+        clearErrors();
+        renderProjects(currentFilter, { animate: initial });
+
+        if (!initial) {
+            resetTyping();
+        }
+    }
+
+    langButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            if (button.dataset.lang === lang) return;
+
+            lang = button.dataset.lang;
+
+            try {
+                localStorage.setItem(LANG_KEY, lang);
+            } catch {
+                // Sem armazenamento: o idioma vale só para esta visita.
+            }
+
+            applyLanguage();
+        });
+    });
+
+    /* ---------- Relógio de São Paulo ---------- */
+
+    const localTime = $("#localTime");
+
+    function updateClock() {
+        if (!localTime) return;
+
+        const now = new Date();
+
+        localTime.textContent = new Intl.DateTimeFormat(lang === "pt" ? "pt-BR" : "en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+            timeZone: "America/Sao_Paulo"
+        }).format(now);
+
+        localTime.setAttribute("datetime", now.toISOString());
+    }
+
+    // Atualiza na virada de cada minuto, e depois a cada 60s.
+    setTimeout(() => {
+        updateClock();
+        setInterval(updateClock, 60_000);
+    }, 60_000 - (Date.now() % 60_000));
+
+    /* ---------- Brilho que segue o mouse dentro dos cards ---------- */
+
+    $$(".skill-group, .highlight-card, .stat-card, .timeline-card").forEach(card => {
+        card.classList.add("spotlight");
+    });
+
+    if (finePointer) {
+        document.addEventListener("pointermove", event => {
+            const card = event.target.closest(".spotlight");
+
+            if (!card) return;
+
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty("--mx", `${event.clientX - rect.left}px`);
+            card.style.setProperty("--my", `${event.clientY - rect.top}px`);
+        }, { passive: true });
+    }
+
+    applyLanguage({ initial: true });
 
     console.log(
         "%cOlá, recrutador! 👋",

@@ -35,11 +35,11 @@ html.light-theme {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    scroll-behavior: smooth;
 }
 
 html {
     scroll-padding-top: 90px;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -91,7 +91,10 @@ button {
     position: fixed;
     inset: 0 auto auto 0;
     z-index: 2000;
-    width: 0;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left center;
+    will-change: transform;
     height: 3px;
     background: linear-gradient(90deg, var(--accent), var(--accent-2));
     box-shadow: 0 0 12px rgba(var(--accent-rgb), .6);
@@ -964,8 +967,10 @@ button {
 
 .reveal {
     opacity: 0;
-    transform: translateY(22px);
-    transition: opacity .65s ease, transform .65s ease;
+    transform: translateY(28px);
+    transition:
+        opacity .7s cubic-bezier(.22, 1, .36, 1) var(--reveal-delay, 0ms),
+        transform .7s cubic-bezier(.22, 1, .36, 1) var(--reveal-delay, 0ms);
 }
 
 .reveal.visible {
@@ -1349,6 +1354,7 @@ button {
     z-index: 3000;
     opacity: 0;
     transition: opacity .3s ease;
+    will-change: transform;
 }
 
 body.cursor-active .cursor-dot,
@@ -1497,5 +1503,202 @@ body.cursor-down .cursor-ring {
 @media (max-width: 720px) {
     .project-shot {
         height: 160px;
+    }
+}
+
+/* Foco levado à seção após a rolagem: sem contorno visível */
+main section[tabindex="-1"]:focus {
+    outline: none;
+}
+
+/* ---------- Relógio de São Paulo ---------- */
+.local-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 42px;
+    padding: 0 14px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .025);
+    color: var(--muted);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: .78rem;
+    white-space: nowrap;
+}
+
+.local-time-city {
+    color: var(--text);
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: .82rem;
+}
+
+.status-dot {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+/* Onda que pulsa a partir do ponto verde */
+.status-dot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: statusPulse 2s ease-out infinite;
+}
+
+@keyframes statusPulse {
+    from { transform: scale(1); opacity: .6; }
+    to   { transform: scale(2.8); opacity: 0; }
+}
+
+/* ---------- Seletor de idioma ---------- */
+.lang-switch {
+    display: inline-flex;
+    height: 42px;
+    padding: 4px;
+    gap: 2px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .025);
+}
+
+.lang-switch button {
+    min-width: 34px;
+    padding: 0 8px;
+    border-radius: 8px;
+    color: var(--muted);
+    background: transparent;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: .75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color .2s ease, background .2s ease;
+}
+
+.lang-switch button:hover {
+    color: var(--text);
+}
+
+.lang-switch button[aria-pressed="true"] {
+    color: var(--text);
+    background: rgba(255, 255, 255, .09);
+    box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .35);
+}
+
+.light-theme .local-time,
+.light-theme .lang-switch {
+    background: rgba(0, 0, 0, .03);
+}
+
+.light-theme .lang-switch button[aria-pressed="true"] {
+    background: rgba(0, 0, 0, .07);
+}
+
+/* ---------- Brilho que segue o mouse nos cards ---------- */
+.spotlight {
+    position: relative;
+    isolation: isolate;
+}
+
+/* Luz suave por dentro do card */
+.spotlight::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%),
+        rgba(var(--accent-rgb), .10), transparent 62%);
+    opacity: 0;
+    transition: opacity .35s ease;
+}
+
+/* Borda que acende perto do cursor */
+.spotlight::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    padding: 1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%),
+        rgba(var(--accent-rgb), .85), rgba(var(--accent-2-rgb), .35) 40%, transparent 70%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity .35s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .spotlight:hover::before,
+    .spotlight:hover::after {
+        opacity: 1;
+    }
+
+    .stat-card,
+    .timeline-card {
+        transition: transform .3s ease, border-color .3s ease;
+    }
+
+    .stat-card:hover,
+    .timeline-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .timeline-item:hover .timeline-dot {
+        box-shadow: 0 0 0 6px rgba(var(--accent-rgb), .25), 0 0 18px rgba(var(--accent-rgb), .6);
+    }
+}
+
+/* ---------- Tags interativas ---------- */
+.tags span,
+.project-tags span {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: .74rem;
+    transition: border-color .2s ease, color .2s ease, background .2s ease, transform .2s ease;
+}
+
+@media (hover: hover) {
+    .tags span:hover,
+    .project-tags span:hover {
+        color: var(--accent);
+        border-color: rgba(var(--accent-rgb), .7);
+        background: rgba(var(--accent-rgb), .08);
+        transform: translateY(-2px);
+    }
+}
+
+/* ---------- Cabeçalho em telas menores ---------- */
+@media (max-width: 1180px) {
+    .local-time-city,
+    .local-time-sep {
+        display: none;
+    }
+}
+
+@media (min-width: 721px) and (max-width: 940px) {
+    .local-time {
+        display: none;
+    }
+}
+
+@media (max-width: 420px) {
+    .local-time {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .status-dot::after {
+        animation: none;
     }
 }
